@@ -1,0 +1,19 @@
+Por rodar silenciosamente em segundo plano, a ferramenta disponibiliza mecanismos para você auditar o que foi feito:
+
+Verificar o próximo agendamento:
+sudo systemctl list-timers --all | grep linux-updater
+
+Analisar o histórico de atualizações (Logs):
+tail -f /var/log/auto_updater.log
+
+📚 Termos Técnicos e Glossário Explicativo
+
+Para fins educacionais e documentação, aqui estão os conceitos do ecossistema Linux utilizados neste projeto:
+
+Systemd: O sistema de inicialização (init system) e gerenciador de serviços padrão na maioria das distribuições Linux modernas. Ele controla quais processos iniciam junto com o sistema operacional.
+
+Systemd Service (.service): Um arquivo de configuração que diz ao Systemd o que deve ser executado (neste caso, o nosso script Python) e com quais privilégios.
+
+Systemd Timer (.timer): Uma alternativa moderna e mais robusta ao antigo Cron. Ele permite agendar tarefas baseando-se tanto em tempo real quanto em eventos (como X minutos após o boot). Possui a propriedade Persistent=true, o que significa que se o computador estiver desligado na hora programada para a atualização, ele executará a tarefa imediatamente ao ser ligado.
+Rolling Release: Modelo de desenvolvimento de software onde o sistema recebe atualizações contínuas de pacotes, em vez de grandes lançamentos de versões a cada poucos meses ou anos (Ex: Kali Linux e Arch Linux).
+Noninteractive Frontend: Uma flag de ambiente (DEBIAN_FRONTEND=noninteractive) passada para o gerenciador de pacotes que impede que o terminal trave solicitando escolhas manuais do usuário durante a instalação de pacotes complexos, forçando o comportamento padrão seguro.
